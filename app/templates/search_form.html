@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Search Form</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.4/css/bulma.min.css">
+</head>
+<body>
+<section class="section">
+    <div class="columns">
+        <div class="column">
+            <form id="myForm" method="post">
+                <div class="field">
+                    <div class="control">
+                        {{form.query(class="input is-large", placeholder="Enter the search term")}}
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="control">
+                        <button id="submitButton" class="button is-success" type="submit">Search</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <hr>
+    <div class="columns">
+        <div class="column">
+            {% if topics %}
+            <h1 class="title is-size-4">Related Topics</h1>
+            <table class="table is-striped">
+                <thead>
+                <th>ID</th>
+                <th>Topic</th>
+                <th>Score</th>
+                </thead>
+                {% for topic in topics %}
+                <tr>
+                    <td>{{topic.topic_id}}</td>
+                    <td>{{topic.label}}</td>
+                    <td>{{topic.score}}</td>
+                </tr>
+                {% endfor %}
+            </table>
+            {% else %}
+            Nothing to show.
+            {% endif %}
+            {% if staff %}
+            <h1 class="title is-size-4">Related Staff</h1>
+            <table class="table is-striped is-fullwidth">
+                <thead>
+                <th>Staff ID</th>
+                <th>Name</th>
+                <th>Score</th>
+                <th>Contribution</th>
+                </thead>
+                {% for s in breakdown %}
+                <tr>
+                    <td>{{s.staff_id}}</td>
+                    <td>{{s.name}}</td>
+                    <td>{{s.score}}</td>
+                    <td>
+                        <table class="table is-bordered is-fullwidth">
+                            {% for contrib in s.contributions %}
+                            <tr>
+                                <td>{{contrib.label}}</td>
+                                <td>{{contrib.score}}</td>
+                            </tr>
+                            {% endfor %}
+                        </table>
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+            {% endif %}
+        </div>
+        <div class="column">
+            {% if events %}
+            <h1 class="title is-size-4">Related Events</h1>
+            <table class="table is-striped">
+                <thead>
+                <th>ID</th>
+                <th>Title</th>
+                <th>Keywords</th>
+                </thead>
+                {% for e in events %}
+                <tr>
+                    <td>{{e.event_id}}</td>
+                    <td>{{e.title}}</td>
+                    <td>{{e.keywords}}</td>
+                </tr>
+                {% endfor %}
+            </table>
+            {% endif %}
+        </div>
+    </div>
+</section>
+</body>
+<script>
+        const myForm = document.getElementById('myForm');
+        const submitButton = document.getElementById('submitButton');
+
+        myForm.addEventListener('submit', function(event) {
+            // Add the class to the submit button
+            submitButton.classList.add('is-loading');
+
+            // Optional: You can also change the button text
+            submitButton.textContent = 'Searching...';
+
+            // If you need to perform an asynchronous operation (e.g., AJAX submission)
+            // you might want to remove the class and re-enable the button
+            // after the operation completes (success or failure).
+            // For a simple form submission, the page will reload,
+            // so this dynamic change might be brief.
+        });
+    </script>
+</html>
