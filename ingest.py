@@ -4,7 +4,7 @@ import sys
 import pandas as pd
 from sqlalchemy import text
 from sqlalchemy.dialects.postgresql import insert
-from app import create_app, db, Staff, Event, StaffEvent, Topic, EventTopic, StaffTopic, thai_seg, get_embedder, \
+from app import create_app, db, Staff, Event, StaffEvent, Topic, EventTopic, thai_seg, get_embedder, \
     EMBED_DIM, embed_passage
 import numpy as np
 

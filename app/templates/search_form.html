@@ -17,7 +17,7 @@
                 </div>
                 <div class="field">
                     <div class="control">
-                        <button id="submitButton" class="button is-success" type="submit">Search</button>
+                        <button id="submitButton" class="button is-success" type="submit">ค้นหาหัวข้อ</button>
                     </div>
                 </div>
             </form>
@@ -84,11 +84,20 @@
                 <th>Keywords</th>
                 </thead>
                 {% for e in events %}
-                <tr>
-                    <td>{{e.event_id}}</td>
-                    <td>{{e.title}}</td>
-                    <td>{{e.keywords}}</td>
-                </tr>
+                    {% if e.staff %}
+                    <tr>
+                        <td>{{e.event_id}}</td>
+                        <td>
+                            {{e.title}}
+                            <div class="tags">
+                            {% for s in e.staff %}
+                                <span class="tag is-rounded is-info">{{ s }}</span>
+                            {% endfor %}
+                            </div>
+                        </td>
+                        <td>{{e.keywords}}</td>
+                    </tr>
+                    {% endif %}
                 {% endfor %}
             </table>
             {% endif %}
